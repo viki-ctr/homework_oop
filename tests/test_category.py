@@ -1,17 +1,23 @@
-from src.product import Product
 from src.category import Category
+from src.product import Product
 
 
 def test_once_category(first_category):
     assert first_category.name == "Телевизоры"
-    assert first_category.description == "Современный телевизор, который позволяет наслаждаться просмотром, станет вашим другом и помощником"
+    assert (
+        first_category.description
+        == "Современный телевизор, который позволяет наслаждаться просмотром, станет вашим другом и помощником"
+    )
     assert first_category.category_count == 1
     assert first_category.product_count == 1
 
 
 def test_with_two_product(any_product_in_categories):
     assert any_product_in_categories.name == "Смартфоны"
-    assert any_product_in_categories.description == "Смартфоны - средство получения дополнительных функций для удобства жизни"
+    assert (
+        any_product_in_categories.description
+        == "Смартфоны - средство получения дополнительных функций для удобства жизни"
+    )
     assert any_product_in_categories.category_count == 1
     assert any_product_in_categories.product_count == 2
 

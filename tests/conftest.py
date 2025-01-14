@@ -1,4 +1,5 @@
 import pytest
+import json
 
 from src.product import Product
 from src.category import Category
@@ -29,3 +30,31 @@ def first_category():
         "Телевизоры",
         "Современный телевизор, который позволяет наслаждаться просмотром, станет вашим другом и помощником",
         [Product("Iphone 15", "512GB, Gray space", 210000.0, 8)])
+
+
+@pytest.fixture
+def sample_json(tmp_path):
+    data = [
+        {
+            "name": "Смартфоны",
+            "description": "Категория смартфонов",
+            "products": [
+                {
+                    "name": "iPhone 15",
+                    "description": "512GB, Gray space",
+                    "price": 210000.0,
+                    "quantity": 8
+                },
+                {
+                    "name": "Samsung Galaxy S23 Ultra",
+                    "description": "256GB, Серый цвет, 200MP камера",
+                    "price": 180000.0,
+                    "quantity": 5
+                }
+            ]
+        }
+    ]
+    file_path = tmp_path / "test_data.json"
+    with open(file_path, "w", encoding="utf-8") as file:
+        json.dump(data, file, ensure_ascii=False, indent=2)
+    return file_path
