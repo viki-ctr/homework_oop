@@ -1,5 +1,4 @@
 from src.product import Product
-from tests.conftest import once_product
 
 
 def test_product_init(once_product):
@@ -57,9 +56,7 @@ def test_new_product_creation():
 
 
 def test_new_product_duplicate_handling():
-    product_list = [
-        Product("Existing Product", "Existing Description", 150.0, 5)
-    ]
+    product_list = [Product("Existing Product", "Existing Description", 150.0, 5)]
 
     product_data = {
         "name": "Existing Product",

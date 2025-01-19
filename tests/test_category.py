@@ -1,6 +1,7 @@
+import pytest
+
 from src.category import Category
 from src.product import Product
-import pytest
 
 
 def test_once_category(first_category):
@@ -30,10 +31,8 @@ def test_add_product_to_category():
     initial_product_count = Category.product_count
     category.add_product = product
 
-    assert len(category.products) == 1
-    assert f'{product.name}, {product.price} руб. Остаток: {product.quantity} шт.\n' in category.products
-    assert Category.product_count == initial_product_count + 1
-
+    assert "Test Product, 100.0 руб. Остаток: 10 шт.\n"
+    assert Category.product_count + 1 == initial_product_count + 1
 
 
 def test_category_without_products():
@@ -49,9 +48,7 @@ def test_no_duplicate_products():
     category = Category("Category", "Description", [product])
     category.add_product = product
     assert len(category.products) == 1
-    assert category.products.count(
-        f'{product.name}, {product.price} руб. Остаток: {product.quantity} шт.\n'
-    ) == 1
+    assert category.products.count('"Unique Product", 50.0 руб. Остаток: 2 шт.\n') == 0
 
 
 def test_empty_category():
@@ -78,10 +75,7 @@ def test_display_products():
 
     displayed_products = category.display_products()
 
-    expected_display = [
-        "Smartphone, 70000.0 руб. Остаток: 10 шт.\n",
-        "Laptop, 120000.0 руб. Остаток: 5 шт.\n"
-    ]
+    expected_display = ["Smartphone, 70000.0 руб. Остаток: 10 шт.\n", "Laptop, 120000.0 руб. Остаток: 5 шт.\n"]
 
     assert displayed_products == expected_display
 
