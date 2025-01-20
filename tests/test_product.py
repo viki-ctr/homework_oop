@@ -27,3 +27,47 @@ def test_update_product():
     assert product.description == "New Description"
     assert product.price == 200.0
     assert product.quantity == 5
+
+
+def test_product_price_getter_setter():
+    product = Product("Test Product", "Test Description", 100.0, 10)
+    assert product.price == 100.0
+    product.price = 200.0
+    assert product.price == 200.0
+    product.price = -50.0
+    assert product.price == 200.0
+
+
+def test_new_product_creation():
+    product_list = []
+    product_data = {
+        "name": "Test Product",
+        "description": "Test Description",
+        "price": 100.0,
+        "quantity": 10,
+    }
+
+    new_product = Product.new_product(product_data, product_list)
+    assert len(product_list) == 1
+    assert new_product.name == "Test Product"
+    assert new_product.description == "Test Description"
+    assert new_product.price == 100.0
+    assert new_product.quantity == 10
+
+
+def test_new_product_duplicate_handling():
+    product_list = [Product("Existing Product", "Existing Description", 150.0, 5)]
+
+    product_data = {
+        "name": "Existing Product",
+        "description": "New Description",
+        "price": 120.0,
+        "quantity": 10,
+    }
+
+    updated_product = Product.new_product(product_data, product_list)
+    assert len(product_list) == 1
+    assert updated_product.name == "Existing Product"
+    assert updated_product.description == "Existing Description"
+    assert updated_product.price == 150.0
+    assert updated_product.quantity == 15
