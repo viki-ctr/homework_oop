@@ -93,3 +93,11 @@ def test_product_count_across_categories():
     category2.add_product(product2)
 
     assert Category.product_count == initial_product_count + 2
+
+
+def test_category_str():
+    product1 = Product("iPhone 15", "Смартфон", 100000.0, 10)
+    product2 = Product("Samsung Galaxy S23", "Смартфон", 90000.0, 5)
+    category = Category("Смартфоны", "Категория смартфонов", [product1, product2])
+
+    assert str(category) == "Смартфоны, количество продуктов: 15 шт."

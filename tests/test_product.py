@@ -1,3 +1,5 @@
+import pytest
+
 from src.product import Product
 
 
@@ -71,3 +73,22 @@ def test_new_product_duplicate_handling():
     assert updated_product.description == "Existing Description"
     assert updated_product.price == 150.0
     assert updated_product.quantity == 15
+
+
+def test_product_addition():
+    product_a = Product("iPhone 15", "Смартфон", 100000.0, 10)
+    product_b = Product("Samsung Galaxy S23", "Смартфон", 90000.0, 2)
+
+    total_cost = product_a + product_b
+    assert total_cost == 100000.0 * 10 + 90000.0 * 2
+
+
+def test_product_addition_invalid_type():
+    product_a = Product("iPhone 15", "Смартфон", 100000.0, 10)
+    with pytest.raises(TypeError):
+        _ = product_a + "Not a Product"
+
+
+def test_product_str_representation():
+    product = Product("iPhone 15", "Смартфон", 100000.0, 10)
+    assert str(product) == "iPhone 15, 100000.0 руб. Остаток: 10 шт."
