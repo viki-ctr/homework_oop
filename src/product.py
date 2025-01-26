@@ -42,12 +42,13 @@ class Product:
     def __add__(self, other):
         if not isinstance(other, Product):
             raise TypeError("Сложение возможно только между объектами класса Product")
-        if type(self) != type(other):
+        if type(self) is not type(other):
             raise TypeError("Сложение возможно только между объектами одного типа")
         return self.price * self.quantity + other.price * other.quantity
 
     def __str__(self):
         return f"{self.name}, {self.price} руб. Остаток: {self.quantity} шт."
+
 
 class Smartphone(Product):
     def __init__(self, name, description, price, quantity, efficiency, model, memory, color):
@@ -56,6 +57,7 @@ class Smartphone(Product):
         self.model = model
         self.memory = memory
         self.color = color
+
 
 class LawnGrass(Product):
     def __init__(self, name, description, price, quantity, country, germination_period, color):
