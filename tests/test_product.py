@@ -1,6 +1,6 @@
 import pytest
 
-from src.product import Product
+from src.product import Product, Smartphone, LawnGrass
 
 
 def test_product_init(once_product):
@@ -92,3 +92,32 @@ def test_product_addition_invalid_type():
 def test_product_str_representation():
     product = Product("iPhone 15", "Смартфон", 100000.0, 10)
     assert str(product) == "iPhone 15, 100000.0 руб. Остаток: 10 шт."
+
+
+def test_add_same_type_product():
+    iphone = Smartphone("iPhone", "Смартфон Apple", 100000, 5, "A16 Bionic", "15 Pro", "256GB", "Silver")
+    samsung = Smartphone("Samsung Galaxy", "Флагман Samsung", 90000, 3, "Exynos 2200", "S23 Ultra", "512GB", "Black")
+    total_cost = iphone + samsung
+    assert total_cost == 770000
+
+
+def test_add_different_type_product():
+    iphone = Smartphone("iPhone", "Смартфон Apple", 100000, 5, "A16 Bionic", "15 Pro", "256GB", "Silver")
+    grass = LawnGrass("Газонная трава", "Трава для газона", 500, 20, "Россия", "14 дней", "Green")
+    with pytest.raises(TypeError, match="Сложение возможно только между объектами одного типа"):
+        _ = iphone + grass
+
+
+def test_invalid_object():
+    iphone = Smartphone("iPhone", "Смартфон Apple", 100000, 5, "A16 Bionic", "15 Pro", "256GB", "Silver")
+    not_a_product = "Это не продукт"
+    with pytest.raises(TypeError, match="Сложение возможно только между объектами класса Product"):
+        _ = iphone + not_a_product
+
+
+def test_add_grass_products():
+    grass1 = LawnGrass("Газонная трава", "Трава для газона", 500, 20, "Россия", "14 дней", "Green")
+    grass2 = LawnGrass("Трава для спортивных полей", "Особо устойчивая трава", 800, 10, "Канада", "21 день",
+                       "Dark Green")
+    total_cost = grass1 + grass2
+    assert total_cost == 18000
