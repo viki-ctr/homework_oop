@@ -1,4 +1,8 @@
-class Product:
+from src.base_product import BaseProduct
+from src.print_mixin import PrintMixin
+
+
+class Product(BaseProduct, PrintMixin):
     """Класс для описания продуктов"""
 
     name: str
@@ -11,6 +15,7 @@ class Product:
         self.description = description  # Описание товара
         self.__price = price  # Цена товара (с плавающей точкой для копеек)
         self.quantity = quantity  # Количество в наличии (целое число)
+        super().__init__()
 
     @classmethod
     def new_product(cls, product_data: dict, product_list: list):
