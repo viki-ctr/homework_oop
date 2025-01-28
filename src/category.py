@@ -2,6 +2,7 @@ from src.product import Product
 
 
 class Category:
+    """Класс для описания категорий"""
     name: str
     description: str
     __products: list[Product]
@@ -30,6 +31,13 @@ class Category:
             Category.product_count += 1
         else:
             raise TypeError("Можно добавлять только объекты класса Product")
+
+    def middle_price(self):
+        try:
+            total_price = sum(product.price for product in self.__products)
+            return total_price / len(self.__products)
+        except ZeroDivisionError:
+            return 0
 
     def __str__(self):
         total_quantity = sum(product.quantity for product in self.__products)
