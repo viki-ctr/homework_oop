@@ -11,11 +11,8 @@ def test_product_init(once_product):
 
 
 def test_empty_name_or_description():
-    product = Product("", "", 0.0, 0)
-    assert product.name == ""
-    assert product.description == ""
-    assert product.price == 0.0
-    assert product.quantity == 0
+    with pytest.raises(ValueError, match="Товар с нулевым количеством не может быть добавлен"):
+        Product("", "", 0.0, 0)
 
 
 def test_update_product():
@@ -121,3 +118,8 @@ def test_add_grass_products():
                        "Dark Green")
     total_cost = grass1 + grass2
     assert total_cost == 18000
+
+
+def test_with_negative_quantity():
+    with pytest.raises(ValueError, match="Товар с нулевым количеством не может быть добавлен"):
+        Product("iPhone 15", "Смартфон", 100000.0, -3)

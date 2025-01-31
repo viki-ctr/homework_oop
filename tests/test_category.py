@@ -101,3 +101,43 @@ def test_category_str():
     category = Category("Смартфоны", "Категория смартфонов", [product1, product2])
 
     assert str(category) == "Смартфоны, количество продуктов: 15 шт."
+
+
+def test_middle_price_with_products():
+    product1 = Product("Smartphone", "High-end smartphone", 70000.0, 10)
+    product2 = Product("Laptop", "Gaming laptop", 120000.0, 5)
+
+    category = Category("Electronics", "Gadgets and devices", [product1, product2])
+    assert category.middle_price() == 95000.0
+
+
+def test_middle_price_with_no_products():
+    empty_category = Category("Пустая", "Нет товаров")
+    assert empty_category.middle_price() == 0
+
+
+def test_middle_price_with_one_product():
+    product1 = Product("Smartphone", "High-end smartphone", 70000.0, 10)
+    category = Category("Electronics", "Gadgets and devices", [product1])
+    assert category.middle_price() == 70000.0
+
+
+def test_middle_price_after_adding_product():
+    product1 = Product("Smartphone", "High-end smartphone", 70000.0, 10)
+    category = Category("Electronics", "Gadgets and devices", [product1])
+    assert category.middle_price() == 70000.0
+
+    product2 = Product("Laptop", "Gaming laptop", 120000.0, 5)
+    category.add_product(product2)
+    assert category.middle_price() == 95000.0
+
+
+def test_middle_price_after_removing_all_products():
+    product1 = Product("Smartphone", "High-end smartphone", 70000.0, 10)
+    product2 = Product("Laptop", "Gaming laptop", 120000.0, 5)
+
+    category = Category("Electronics", "Gadgets and devices", [product1, product2])
+    assert category.middle_price() == 95000.0
+
+    category.products.clear()
+    assert category.middle_price() == 0
